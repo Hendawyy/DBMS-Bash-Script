@@ -5,7 +5,7 @@ source helper.sh
 
 # The create_DB function is used to create a new database. 
 function create_DB {
-    dbName=$(zenity --entry --title="Create DB" --text="Enter the database name:")
+    dbName=$(zenity --entry --width=300 --title="Create DB" --text="Enter the database name:")
     if [ $? -ne 0 ]; then
         source "$Main_Menu_Script"
         return  

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source the helper file
-source ../helper.sh
+source helper.sh
 
 # The create_DB function is used to create a new database. 
 function create_DB {

@@ -1,0 +1,21 @@
+Database Management System (DBMS) - Bash Shell Script
+----------------------------------------------------------------------------------------------------------
+Developed by:
+- Ahmed Ossama
+- Seif Hendawy
+
+GitHub Repository:
+https://github.com/ahmeedusamaa/DBMS-Bash-Script
+
+Project Description:
+This is a simple database engine implemented using Bash scripting. 
+It allows users to create, manage, and manipulate databases and tables 
+through a GUI-based interface using Zenity.
+
+Features:
+- Create, List, Rename, and Drop Databases
+- Create, List, and Drop Tables
+- Insert, Select, Update, and Delete Records
+- Primary Key Enforcement & Data Validation
+
+Thank you for using our DB Engine!

@@ -2,13 +2,11 @@
 
 # the Table_Menu function is used to display the main menu for the table operations.
 function Table_Menu {
-    choice=$(zenity --list --width=400 --height=300 \
-    --title="DB Engine Main Menu" --text="Choose an Option From The Given" --column="Options" \
+    choice=$(zenity --list --width=420 --height=380 \
+    --title="Table Menu For $1.db" --text="Choose an Option From The Given" --column="Options" \
     "Create Table" "List Tables" "Drop Table" "Insert Into Table" "Select From Table"  "Delete From Table" "Update Table" "Disconnect From Database" "Exit")
     if [ $? -eq 1 ]; then
-        echo "Thanks For Using Our Database Engine"
-        echo "Good Bye"
-        exit
+        DBMenu
     fi
 
     case $choice in
@@ -34,7 +32,7 @@ function Table_Menu {
             source update_Table.sh
             ;;
         "Disconnect From Database")
-            source Main_Menu.sh
+            DBMenu
             ;;
         "Exit")
             echo "Thanks For Using Our Database Engine"
@@ -49,4 +47,4 @@ function Table_Menu {
     esac
 }
 
-Table_Menu
+Table_Menu $1

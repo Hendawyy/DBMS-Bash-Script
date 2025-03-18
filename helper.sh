@@ -7,6 +7,7 @@ dbPath="Databases"
 # scripts to be sourced
 create_Table_Script="./create_Table.sh" 
 Main_Menu_Script="./Main_Menu.sh"
+Table_Menu_Script="../../TableScripts/Table_Menu.sh"
 
 
 # The validate_name function is used to validate the database name entered by the user.
@@ -30,7 +31,7 @@ function check_DB_exists {
 # The list_DBs function is used to list all the databases in the Databases directory. The user is prompted to select a database to connect to.
 function list_DBs() {
     databses=$(ls Databases/)
-    selected_db=$(zenity --list --width=400 --height=300 \
+    selected_db=$(zenity --list --width=400 --height=600 \
     --title="List of Databases" --text="Choose a Database To Connect to:" --column="Databases" $databses)
     if [ $? -eq 1 ]; then
         DBMenu
@@ -54,5 +55,5 @@ function connect_DB() {
     db=$1
     cd Databases/$db/
     zenity --info --text="Connected To $db"
-    # Nenady 3la l table Menu Hena
+    source $Table_Menu_Script $db
 }

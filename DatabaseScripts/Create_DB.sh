@@ -7,8 +7,7 @@ source helper.sh
 function create_DB {
     dbName=$(zenity --entry --width=300 --title="Create DB" --text="Enter the database name:")
     if [ $? -ne 0 ]; then
-        source "$Main_Menu_Script"
-        return  
+        DBMenu
     fi
     if [ -z "$dbName" ]; then
         zenity --error --text="No name entered. Exiting..."

@@ -1,5 +1,6 @@
 #!/bin/bash
 # Description: This file contains the function to drop a database.
+source DatabaseScripts/DB_Menu.sh
 # The Drop_DB function is used to drop a database in the Databases directory.
 function Drop_DB(){
     databses=$(ls Databases/)

@@ -1,15 +1,15 @@
 #!/bin/bash
+# exec 2>/dev/null
 # Description: This file contains the helper functions for the database management system.
-
-
 # Path to the Databases directory
 dbPath="Databases"
 # scripts to be sourced
-create_Table_Script="./create_Table.sh" 
-Main_Menu_Script="./Main_Menu.sh"
 Table_Menu_Script="../../TableScripts/Table_Menu.sh"
+Database_Scripts_Path="../../DatabaseScripts"
+SQL_Scripts_Path="../../TableScripts/SQL_Scripts"
+GUI_Scripts_path="../../TableScripts/GUI_Scripts" 
 
-
+source $Database_Scripts_Path/DB_Menu.sh 2>/dev/null
 # The validate_name function is used to validate the database name entered by the user.
 function validate_name {
     name=$1
@@ -56,4 +56,56 @@ function connect_DB() {
     cd Databases/$db/
     zenity --info --text="Connected To $db"
     source $Table_Menu_Script $db
+}
+
+# The GUISQL function is used to prompt the user to choose between GUI and SQL mode for table operations.
+function GUISQL(){
+    script_name=$1
+    db_name=$2
+    type=$(zenity --list --width=420 --height=380 \
+    --title="Do you want To Use GUI or SQL" --text="Choose an Option From The Given" --column="Options" \
+    "GUI" "SQL")
+    if [ $? -eq 1 ]; then
+        Table_Menu $db_name
+    fi
+
+    if [[ "$type" == "GUI" ]]; then
+        source $GUI_Scripts_path/$script_name $db_name
+    elif [[ "$type" == "SQL" ]]; then
+        SQL_Mode "$script_name" "$db_name"
+    else
+        zenity --error --text="Invalid Option"
+        GUISQL "$script_name" "$db_name"
+    fi
+}
+
+# The SQL_Mode function is used to call the SQL scripts for table operations.
+function SQL_Mode(){
+    script_name=$1
+    db_name=$2
+
+    case "$script_name" in
+        "create_Table.sh")
+            $SQL_Scripts_Path/SQLCreateTable.sh "$db_name"
+            ;;
+        "drop_Table.sh")
+            $SQL_Scripts_Path/SQLDropTable "$db_name"
+            ;;
+        "insert_into_Table.sh")
+            $SQL_Scripts_Path/SQLInsertIntoTable.sh "$db_name"
+            ;;
+        "select_from_Table.sh")
+            $SQL_Scripts_Path/SQLSelectFromTable.sh "$db_name"
+            ;;
+        "delete_from_Table.sh")
+            $SQL_Scripts_Path/SQLDeleteFromTable.sh "$db_name"
+            ;;
+        "update_Table.sh")
+            $SQL_Scripts_Path/SQLUpdateTable.sh "$db_name"
+            ;;
+        *)
+            zenity --error --text="Invalid Option"
+            Table_Menu $db_name
+            ;;
+    esac
 }

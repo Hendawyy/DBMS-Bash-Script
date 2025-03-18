@@ -1,4 +1,5 @@
 #!/bin/bash
+source ../../helper.sh
 
 # the Table_Menu function is used to display the main menu for the table operations.
 function Table_Menu {
@@ -6,32 +7,34 @@ function Table_Menu {
     --title="Table Menu For $1.db" --text="Choose an Option From The Given" --column="Options" \
     "Create Table" "List Tables" "Drop Table" "Insert Into Table" "Select From Table"  "Delete From Table" "Update Table" "Disconnect From Database" "Exit")
     if [ $? -eq 1 ]; then
+        cd ../..
         DBMenu
     fi
 
     case $choice in
         "Create Table")
-            source create_Table.sh
+            GUISQL create_Table.sh $1
             ;;
         "List Tables")
-            source list_Tables.sh
+            source list_Tables.sh $1
             ;;
         "Drop Table")
-            source drop_Table.sh
+            GUISQL drop_Table.sh $1
             ;;
         "Insert Into Table")
-            source insert_into_Table.sh
+            GUISQL insert_into_Table.sh $1
             ;;
         "Select From Table")
-            source select_from_Table.sh
+            GUISQL select_from_Table.sh $1
             ;;
         "Delete From Table")
-            source delete_from_Table.sh
+            GUISQL delete_from_Table.sh $1
             ;;
         "Update Table")
-            source update_Table.sh
+            GUISQL update_Table.sh $1
             ;;
         "Disconnect From Database")
+            cd ../..
             DBMenu
             ;;
         "Exit")
@@ -41,7 +44,7 @@ function Table_Menu {
             ;;
         *)
             zenity --error --text="Invalid Option. Please try again."
-            Table_Menu
+            Table_Menu $1
             ;;
 
     esac

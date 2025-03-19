@@ -27,7 +27,15 @@ function check_DB_exists {
     fi    
     return 0
 }
-
+# The check_TB_exists function is used to check if the table already exists.
+function check_TB_exists {
+    dbName=$1
+    tbName=$2
+    if [ -d "$dbPath/$dbName/$tbName" ]; then
+        return 1
+    fi
+    return 0
+}
 # The list_DBs function is used to list all the databases in the Databases directory. The user is prompted to select a database to connect to.
 function list_DBs() {
     databses=$(ls Databases/)

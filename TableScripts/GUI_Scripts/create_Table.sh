@@ -176,7 +176,7 @@ function create_Table {
     done
     for (( i=0; i < numColumns; i++ )); do
         count=$(cut -d ':' -f 1 "$tableName/$tableName.md" | grep -i "^${columns[$i]}$" | wc -l)
-        if [[ $count -gt 0 ]]; then
+        if [[ $count -gt 1 ]]; then
             zenity --error --width=400 --height=100 --title="Error" --text="Column Name Already Exists"
             rm -r "$tableName"
             create_Table $1
@@ -184,6 +184,7 @@ function create_Table {
         
     done
     zenity --info --width=400 --height=100 --title="Success" --text="Table $tableName Created Successfully"
+    Table_Menu $1
 }
 
 create_Table $1

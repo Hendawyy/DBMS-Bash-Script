@@ -55,8 +55,7 @@ function create_Table {
         --add-entry="Column Name"\
         --add-entry="Unique(y/n)"\
         --add-entry="Not Null(y/n)")
-        if [ $? -
-    value+=($UpdateValue)ne 0 ]; then
+        if [ $? -ne 0 ]; then
             zenity --error --width=400 --height=100 --title="Error" --text="$tableName Creation Cancelled"
             Table_Menu $1
         fi

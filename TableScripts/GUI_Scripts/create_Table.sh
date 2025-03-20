@@ -41,7 +41,7 @@ function create_Table {
     
     mkdir -p "$tableName"
     touch "$tableName/$tableName" "$tableName/$tableName.md"
-    echo "tableName:$tableName" > "$tableName/$tableName.md"
+    echo "TableName:$tableName" > "$tableName/$tableName.md"
     echo "Number_of_Columns:$numColumns" >> "$tableName/$tableName.md"
     echo "Column_Name:Type:Primary_Key(y/n):Unique:Not_Null" >> "$tableName/$tableName.md"
     
@@ -55,7 +55,8 @@ function create_Table {
         --add-entry="Column Name"\
         --add-entry="Unique(y/n)"\
         --add-entry="Not Null(y/n)")
-        if [ $? -ne 0 ]; then
+        if [ $? -
+    value+=($UpdateValue)ne 0 ]; then
             zenity --error --width=400 --height=100 --title="Error" --text="$tableName Creation Cancelled"
             Table_Menu $1
         fi

@@ -20,20 +20,20 @@ function table_operations {
     fi
 
     case $choice in
-        "Drop Table")
-            GUISQL "$GUI_Scripts_path/drop_Table.sh" "$1"
-            ;;
-        "Delete From Table")
-            GUISQL "$GUI_Scripts_path/delete_from_table.sh" "$1"
+        "Select From Table")
+            GUISQL "$GUI_Scripts_path/select_from_Table.sh" "$1" "$2"
             ;;
         "Insert Into Table")
-            GUISQL "$GUI_Scripts_path/insert_into_Table.sh" "$1"
-            ;;
-        "Select From Table")
-            GUISQL "$GUI_Scripts_path/select_from_Table.sh" "$1"
+            GUISQL "$GUI_Scripts_path/insert_into_Table.sh" "$1" "$2"
             ;;
         "Update Table")
-            GUISQL "$GUI_Scripts_path/update_Table.sh" "$1"
+            GUISQL "$GUI_Scripts_path/update_Table.sh" "$1" "$2"
+            ;;
+        "Delete From Table")
+            GUISQL "$GUI_Scripts_path/delete_from_table.sh" "$1" "$2"
+            ;;
+        "Drop Table")
+            GUISQL "$GUI_Scripts_path/drop_Table.sh" "$1" "$2"
             ;;
         "Disconnect From Database")
             cd ../..
@@ -51,4 +51,4 @@ function table_operations {
     esac
 }
 
-table_operations "$1"
+table_operations "$1" "$2"

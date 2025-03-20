@@ -1,6 +1,7 @@
-TableName:meezo
-Number_of_Columns:3
+TableName:new_table
+Number_of_Columns:4
 Column_Name:Type:Primary_Key(y/n):Unique:Not_Null
 id:ID--Int--Auto--Inc.:y:n:n
 name:varchar:n:n:n
-gender:Enum:n:n:y:{M F O}
+age:int:n:n:n
+gender:Enum:n:n:n:{M F O}

@@ -1,7 +1,7 @@
 Database Management System (DBMS) - Bash Shell Script
 ----------------------------------------------------------------------------------------------------------
 Developed by:
-- Ahmed Ossama
+- Ahmed Osama
 - Seif Hendawy
 
 GitHub Repository:

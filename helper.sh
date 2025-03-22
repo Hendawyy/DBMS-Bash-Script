@@ -69,7 +69,8 @@ function connect_DB() {
 # The GUISQL function is used to prompt the user to choose between GUI and SQL mode for table operations.
 function GUISQL(){
     script_name=$1
-    db_name=$2
+    tableName=$2
+    db_name=$3
     type=$(zenity --list --width=420 --height=380 \
     --title="Do you want To Use GUI or SQL" --text="Choose an Option From The Given" --column="Options" \
     "GUI" "SQL")
@@ -78,7 +79,7 @@ function GUISQL(){
     fi
 
     if [[ "$type" == "GUI" ]]; then
-        source $GUI_Scripts_path/$script_name $db_name
+        source $GUI_Scripts_path/$script_name $db_name $tableName
     elif [[ "$type" == "SQL" ]]; then
         SQL_Mode "$script_name" "$db_name"
     else
@@ -210,7 +211,6 @@ function validate_input {
     IFS="," read -r -a user_input_array <<< "$user_input"
 
     number_of_columns=${#field_types[@]}
-    
     password_index=-1  
 
     for ((i = 0; i < number_of_columns; i++)); do
@@ -360,7 +360,7 @@ function filter_matching() {
             if (op == ">"  && columnValue > compareValue)  matchFound = 1
             if (op == "<"  && columnValue < compareValue)  matchFound = 1
 
-            if (func == "Delete") {
+            if (func == "DELETE") {
                 if (!matchFound) { print $0 }
             } else {
                 if (matchFound) { print $0 }
@@ -377,7 +377,7 @@ function Filter_AND_Delete() {
     value=$5
     dbName=$(basename "$(pwd)")
 
-    functionName="Delete"
+    functionName="DELETE"
 
     tempFile=$(mktemp)
     filter_matching "$tableName/$tableName" "$columnNumber" "$operator" "$value" "$tempFile" "$functionName"
@@ -390,3 +390,70 @@ function Filter_AND_Delete() {
 
     Table_Menu $dbName
 }
+
+function Filter_AND_Update() {
+    tableDataPath="$1"
+    metaDataPath="$2"
+    columnNumber="$3"
+    filterColumnNumber="$4"
+    operator="$5"
+    conditionValue="$6"
+    newValue="$7"
+    functionName="UPDATE"
+
+
+    tempFile="matchingRows.tmp"
+
+    filter_matching "$tableDataPath" "$filterColumnNumber" "$operator" "$conditionValue" "$tempFile" "$functionName"
+
+
+    numberOfAffectedRows=$(wc -l < "$tempFile")
+    
+    if [ "$numberOfAffectedRows" -eq 0 ]; then
+        zenity --info --width=400 --height=100 --title="Info" --text="No Rows Matched the Condition"
+        Table_Menu "$dbName"
+    fi
+
+    uniqueness_Check=$(awk -F: -v colNum="$columnNumber" '
+        NR > 3 {
+            if (NR-3 == colNum && ($3 == "y" || $4 == "y")) 
+                print "unique"
+        }
+    ' "$metaDataPath")
+
+    if [ "$uniqueness_Check" == "unique" ]; then
+        if [ "$numberOfAffectedRows" -gt 1 ]; then
+            zenity --error --text="Multiple Rows Matched the Condition, Can't Update Unique Column"
+            rm "$tempFile"
+            Table_Menu $1
+        fi
+    fi
+
+
+
+    awk -F: -v colNum="$columnNumber" -v newValue="$newValue" '
+        NR==FNR { matchedIDs[$1] = 1; next }
+        {
+            if ($1 in matchedIDs) {
+                for (i = 1; i <= NF; i++) {
+                    if (i == colNum) {
+                        printf newValue
+                    } else {
+                        printf $i
+                    }
+                    if (i < NF) printf ":"
+                }
+                print ""
+            } else {
+                print $0
+            }
+        }
+    ' "$tempFile" "$tableDataPath" > temp.tmp
+
+
+    mv temp.tmp "$tableDataPath"
+    rm "$tempFile"
+
+    zenity --info --width=400 --height=100 --title="Info" --text="Table Updated Successfully"
+}
+

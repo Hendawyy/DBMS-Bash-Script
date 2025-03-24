@@ -9,7 +9,7 @@ source $Database_Scripts_Path/DB_Menu.sh
 function table_operations {
     choice=$(zenity --list --width=420 --height=380 \
     --title="Table Operations for $1" --text="Choose an Option From The Given" --column="Options" \
-    "Drop Table" "Delete From Table" "Insert Into Table" "Select From Table" "Update Table" "Disconnect From Database" "Exit")
+    "Select From Table" "Insert Into Table" "Update Table"  "Delete From Table" "Drop Table" "Disconnect From Database" "Exit")
 
     if [ $? -eq 1 ]; then
         cd ../..

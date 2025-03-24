@@ -455,4 +455,3 @@ function Filter_AND_Update() {
 
     zenity --info --width=400 --height=100 --title="Info" --text="Table Updated Successfully"
 }
-

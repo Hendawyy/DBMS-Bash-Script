@@ -5,9 +5,6 @@ GUI_Scripts_path="../../TableScripts/GUI_Scripts"
 Database_Scripts_Path="../../DatabaseScripts"
 source $Database_Scripts_Path/DB_Menu.sh 
 
-echo "from TAble_operations $(pwd)"
-echo $(ls "$GUI_Scripts_path")
-
 # Table operations menu
 function table_operations {
     choice=$(zenity --list --width=420 --height=380 \

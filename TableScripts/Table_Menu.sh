@@ -5,10 +5,6 @@ GUI_Scripts_path="../../TableScripts/GUI_Scripts"
 Database_Scripts_Path="../../DatabaseScripts"
 source $Database_Scripts_Path/DB_Menu.sh 
 
-echo "from TAble_Menu $(pwd)"    
-echo $(ls "$GUI_Scripts_path")
-
-
 # the Table_Menu function is used to display the main menu for the table operations.
 function Table_Menu {
     choice=$(zenity --list --width=420 --height=380 \

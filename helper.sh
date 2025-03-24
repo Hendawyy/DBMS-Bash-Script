@@ -206,15 +206,12 @@ function validate_input {
     shift 1
     field_types=("$@")
 
-    echo "field_types: ${field_types[@]}"
-
     IFS="," read -r -a user_input_array <<< "$user_input"
 
     number_of_columns=${#field_types[@]}
     password_index=-1  
 
     for ((i = 0; i < number_of_columns; i++)); do
-        echo "Validating: ${user_input_array[$i]}"
 
         case "${field_types[$i]}" in  
             "int")

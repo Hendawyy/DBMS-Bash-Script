@@ -143,8 +143,6 @@ function retrieve_selected_columns(){
     done < "$TableDataPath"
 
     formatted_data+="</table></body></html>"
-
-    echo "$formatted_data"
 }
 
 function Select_Columns(){
@@ -236,7 +234,6 @@ function retrieve_filtered_data() {
     formatted_data+="</table></body></html>"
     
     rm matchingRows.tmp
-    echo "$formatted_data"
 }
 
 function Select_All_Cond() {

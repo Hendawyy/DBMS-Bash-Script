@@ -1,7 +1,5 @@
 #!/bin/bash
 source ../../helper.sh
-echo "from insert_into_Table $(pwd)"
-
 
 # takes input from user 
 function insert_into_Table {
@@ -60,7 +58,7 @@ function insert_into_Table {
     while true; do
         flag=0  
         user_input=$(zenity --forms --title="Insert Into $table_name" --text="Enter the following details" --separator="," "${form_entries[@]}")
-        echo "User input: $user_input"
+
         if [ $? -ne 0 ]; then
             break  
         fi
@@ -154,10 +152,8 @@ function insert_into_Table {
                 fi
             done
 
-            echo "flag: $flag"
 
             if [ "$flag" -eq 0 ]; then
-                echo "Inserting record..."
                 insert_record "$table_name" "$user_input"
                 break
             fi
@@ -166,4 +162,4 @@ function insert_into_Table {
     Table_Menu $db_name
 }
 
-insert_into_Table $1
+insert_into_Table $2 $1

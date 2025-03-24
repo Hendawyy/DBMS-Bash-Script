@@ -1,7 +1,6 @@
 #!/bin/bash
 
 source ../../helper.sh
-echo "from list_Table $(pwd)"
 GUI_Scripts_path="../../TableScripts/GUI_Scripts"
 Database_Scripts_Path="../../DatabaseScripts"
 source $Database_Scripts_Path/DB_Menu.sh 

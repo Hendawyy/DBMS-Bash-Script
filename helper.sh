@@ -376,7 +376,6 @@ function Filter_AND_Delete() {
     operator=$4
     value=$5
     dbName=$(basename "$(pwd)")
-
     functionName="DELETE"
 
     tempFile=$(mktemp)

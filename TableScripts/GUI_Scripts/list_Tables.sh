@@ -38,6 +38,7 @@ function list_Tables {
         Table_Menu $db_name
     else
         zenity --info --text="Selected table: $selected_table"
+        # source $GUI_Scripts_path/table_Operations.sh $selected_table $db_name
         source $GUI_Scripts_path/table_Operations.sh $selected_table $db_name
     fi
 

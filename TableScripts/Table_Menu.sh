@@ -17,10 +17,14 @@ function Table_Menu {
 
     case $choice in
         "Create Table")
-            GUISQL create_Table.sh $1
+            GUI create_Table.sh $1
             ;;
         "List Tables")
             source $GUI_Scripts_path/list_Tables.sh $1
+            ;;
+        "Disconnect From Database")
+            cd ../..
+            DBMenu
             ;;
         "Exit")
             echo "Thanks For Using Our Database Engine"

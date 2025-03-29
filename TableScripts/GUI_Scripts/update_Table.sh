@@ -35,7 +35,7 @@ function Update_Table(){
     UpdateValuez=()
     UpdateValuez+=($UpdateValue)
     if [[ "$DataType" == "Enum" ]]; then
-        if ! validate_enum "$UpdateValue" "$Selected_Column_Number" "$tableName"; then
+        if ! validate_enum "$UpdateValue" "$Selected_Column_Number" "$tableName" "GUI"; then
             zenity --error --text="Invalid input: $UpdateValue, Please enter a valid Enum Value."
             Update_Table $dbName $tableName
         fi
@@ -56,7 +56,7 @@ function Update_Table(){
         Update_Table $dbName $tableName
     fi
     DataTypeCondColumn=$(awk -F: -v colName=$ColumnCondition 'NR>3 {if($1==colName) print $2}' $metaDataPath)
-    if [[ "$DataTypeCondColumn" == "ID--Int--Auto--Inc." || "$DataTypeCondColumn" == "INT" || "$DataTypeCondColumn" == "Double" || "$DataTypeCondColumn" == "Date" || "$DataTypeCondColumn" == "Current--Date--Time" ]]; then
+    if [[ "$DataTypeCondColumn" == "ID--Int--Auto--Inc." || "$DataTypeCondColumn" == "INT" || "$DataTypeCondColumn" == "Double" || "$DataTypeCondColumn" == "Date" || "$DataTypeCondColumn" == "current_timestamp" ]]; then
         operators=("==" "!=" ">" "<" ">=" "<=")
     else
         operators=("==" "!=")

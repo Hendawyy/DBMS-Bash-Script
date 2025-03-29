@@ -1,9 +1,8 @@
 TableName:meezo
-Number_of_Columns:6
+Number_of_Columns:5
 Column_Name:Type:Primary_Key(y/n):Unique:Not_Null
 id:ID--Int--Auto--Inc.:y:n:n
-date:date:n:n:n
 name:varchar:n:n:n
-timestamp:current_timestamp:n:n:n
-gender:Enum:n:n:y:{M F O}
+date:date:n:n:n
+gender:Enum:n:n:n:{M F}
 pass:password:n:n:n

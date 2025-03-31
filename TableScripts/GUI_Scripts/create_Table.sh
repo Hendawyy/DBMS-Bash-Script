@@ -92,7 +92,7 @@ function create_Table {
         nullable+=($nullable)
         data_type=$(zenity --list --width=400 --height=450 --title="Create Table $tableName" --text="Select Data Type For Column($i)"\
         --column="Data Types"\
-        "ID--Int--Auto--Inc." "int" "double" "varchar" "Enum" "Phone" "Email" "Password" "Date" "Current--Date--Time")
+        "ID--Int--Auto--Inc." "int" "double" "varchar" "Enum" "Phone" "Email" "Password" "Date" "current_timestamp")
         if [ $? -ne 0 ]; then
             zenity --error --width=400 --height=100 --title="Error" --text="$tableName Creation Cancelled"
             rm -r "$tableName"

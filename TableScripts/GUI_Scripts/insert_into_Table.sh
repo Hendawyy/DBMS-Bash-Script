@@ -84,7 +84,7 @@ function insert_into_Table {
         # =======================================================================================================
         # =======================================================================================================
         if [ "$current_timestamp_index" -gt 0 ]; then
-            current_timestamp=$(date +"%Y-%m-%d %H/%M/%S")  # Standard timestamp format
+            current_timestamp=$(date +"%Y-%m-%d-%H/%M/%S")  # Standard timestamp format
 
             IFS="," read -r -a user_input_array <<<"$user_input"
 
@@ -154,7 +154,7 @@ function insert_into_Table {
 
 
             if [ "$flag" -eq 0 ]; then
-                insert_record "$table_name" "$user_input"
+                insert_record "$table_name" "$user_input" "$db_name"
                 break
             fi
         fi

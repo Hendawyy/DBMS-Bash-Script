@@ -1,4 +1,5 @@
 #!bin/bash
+source ../../TableScripts/GUI_Scripts/Table_Header.sh
 function Select_Without_Condition(){
     type=$1
     dbName=$2
@@ -9,7 +10,7 @@ function Select_Without_Condition(){
         Select_Columns $dbName $tableName
     else
         zenity --error --text="Invalid Type"
-        Select_TB $dbName
+        source ../../TableScripts/GUI_Scripts/select_from_Table.sh $dbName $tableName
     fi
 }
 
@@ -24,7 +25,7 @@ function Select_With_Condition(){
         Select_Columns_Cond $dbName $tableName
     else
         zenity --error --text="Invalid Type"
-        Select_TB $dbName
+        source ../../TableScripts/GUI_Scripts/select_from_Table.sh $dbName $tableName
     fi
 }
 
@@ -75,7 +76,7 @@ function Select_All(){
 
     if [ -z "$selectedTable" ]; then
         zenity --error --text="No Table Selected"
-        Select_TB $dbName
+        source ../../TableScripts/GUI_Scripts/select_from_Table.sh $dbName $selectedTable
     fi
 
     formatted_data=$(retrieve_table_data_select_all "$dbName" "$selectedTable")
@@ -194,7 +195,7 @@ function retrieve_filtered_data() {
     numberOfMatchingRows=$(wc -l < matchingRows.tmp)
     if [ "$numberOfMatchingRows" -eq 0 ]; then
         zenity --info --width=400 --height=100 --title="Info" --text="No Rows Matched the Condition"
-        Select_TB $dbName
+        source ../../TableScripts/GUI_Scripts/select_from_Table.sh $dbName $selectedTable
     fi
 
     uppercaseTable=$(echo "$selectedTable" | awk '{print toupper($0)}')
@@ -238,7 +239,7 @@ function Select_All_Cond() {
 
     if [ $? -eq 1 ] || [ -z "$Selected_Column" ]; then
         zenity --error --text="No Column Selected"
-        Select_TB "$dbName"
+        source ../../TableScripts/GUI_Scripts/select_from_Table.sh "$dbName" $selectedTable
         return
     fi
 
@@ -248,7 +249,7 @@ function Select_All_Cond() {
           "$DataTypeCondColumn" == "INT" || \
           "$DataTypeCondColumn" == "Double" || \
           "$DataTypeCondColumn" == "Date" || \
-          "$DataTypeCondColumn" == "Current--Date--Time" ]]; then
+          "$DataTypeCondColumn" == "current_timestamp" ]]; then
         operators=("==" "!=" ">" "<" ">=" "<=")
     else
         operators=("==" "!=")
@@ -260,7 +261,7 @@ function Select_All_Cond() {
 
     if [ $? -eq 1 ] || [ -z "$SelectedOperator" ]; then
         zenity --error --text="No Operator Selected"
-        Select_TB "$dbName"
+        source ../../TableScripts/GUI_Scripts/select_from_Table.sh "$dbName" $selectedTable
         return
     fi
 
@@ -269,7 +270,7 @@ function Select_All_Cond() {
 
     if [ $? -eq 1 ] || [ -z "$FilterValue" ]; then
         zenity --error --text="No Value Entered"
-        Select_TB "$dbName"
+        source ../../TableScripts/GUI_Scripts/select_from_Table.sh "$dbName" $selectedTable
         return
     fi
 
@@ -383,7 +384,7 @@ function Select_Columns_Cond() {
 
     DataTypeCondColumn=$(awk -F: -v colName="$Selected_Column" 'NR>3 && $1==colName {print $2}' "$metadataPath")
 
-    if [[ "$DataTypeCondColumn" == "ID--Int--Auto--Inc." || "$DataTypeCondColumn" == "INT" || "$DataTypeCondColumn" == "Double" || "$DataTypeCondColumn" == "Date" || "$DataTypeCondColumn" == "Current--Date--Time" ]]; then
+    if [[ "$DataTypeCondColumn" == "ID--Int--Auto--Inc." || "$DataTypeCondColumn" == "INT" || "$DataTypeCondColumn" == "Double" || "$DataTypeCondColumn" == "Date" || "$DataTypeCondColumn" == "current_timestamp" ]]; then
         operators=("==" "!=" ">" "<" ">=" "<=")
     else
         operators=("==" "!=")

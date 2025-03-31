@@ -1,7 +1,6 @@
 #!/bin/bash
 
 source ../../helper.sh
-source ../../TableScripts/GUI_Scripts/Table_Header.sh
 source ../../DataRetrievalHelper.sh
 
 function Select_TB(){

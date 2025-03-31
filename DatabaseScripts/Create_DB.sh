@@ -23,13 +23,10 @@ function create_DB {
     if [ $? -ne 0 ]; then
         zenity --error --text="Database already exists. Exiting..."
         create_DB
-        return
-    else
-        mkdir -p "$dbPath/$dbName"
-        zenity --info --text="Database created successfully "
-        # source "$create_Table_Script"
-        return
     fi
+    mkdir -p "$dbPath/$dbName"
+    zenity --info --text="Database created successfully "
+
 }
 
 create_DB

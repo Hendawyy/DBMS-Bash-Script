@@ -28,7 +28,7 @@ function Update_Table(){
         zenity --info --width=400 --height=100 --title="Info" --text="Update Table Operation Cancelled"
         Table_Menu $dbName
     fi
-    if [ -z $UpdateValue ]; then
+    if [ -z $UpdateValue ]; thenstudents
         zenity --error --text="No Value Entered"
         Update_Table $dbName $tableName
     fi

@@ -9,4 +9,4 @@ bmi:double:n:n:n
 email:Email:n:n:n
 password:password:n:n:n
 phone:phone:n:n:n
-birth_date:date:n:n:n
+birth_date:Date:n:n:n

@@ -35,7 +35,7 @@ function insert_into_Table {
         field_type="${field_types[i]}"
         field="${field_names[i]}"
         
-        if [[ "$field_type" == "date" ]]; then
+        if [[ "$field_type" == "Date" ]]; then
             form_entries+=(--add-calendar="$field")
         elif [[ "$field_type" == "Enum" ]]; then
             enum_values=$(awk -F: -v i="$((i+4))" '{if (NR == i) print $NF}' "$table_name/$table_name.md" | tr -d '{}')
@@ -46,7 +46,7 @@ function insert_into_Table {
             form_entries+=(--add-password="$field")
         elif [[ "$field_type" == "ID--Int--Auto--Inc." ]]; then
             auto_increment_index=$((i + 1))
-        elif [[ "$field_type" == "date" ]]; then
+        elif [[ "$field_type" == "Date" ]]; then
             form_entries+=(--add-calendar="$field")
         elif [[ "$field_type" == "current_timestamp" ]]; then
             current_timestamp_index=$((i + 1))

@@ -353,9 +353,7 @@ function validate_input {
 insert_record() {
     table_name=$1
     user_input=$2
-    echo "DEBUG: Table name: $table_name"
-    echo "DEBUG: User input: $user_input"
-
+    
     IFS="," read -r -a user_input_array <<<"$user_input"
     record=$(IFS=":"; echo "${user_input_array[*]}")
 
